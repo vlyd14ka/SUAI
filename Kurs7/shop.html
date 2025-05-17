@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин спортивных товаров</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 400px;
+        }
+
+        .product-card img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .product-price {
+            font-size: 16px;
+            color: #FF4500;
+            margin-top: 5px;
+        }
+
+        .btn-buy {
+            background-color: #FF4500;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-buy:hover {
+            background-color: #FF0000;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .col-md-4 {
+            flex: 1 1 calc(33% - 20px);
+        }
+
+        .filter-container {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .cart-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .category-title {
+            margin-top: 50px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .remove-item {
+            color: red;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        .remove-item:hover {
+            text-decoration: underline;
+        }
+
+        .payment-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .payment-button {
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .payment-button:hover {
+            background-color: #218838;
+        }
+
+        .modal-body p {
+            font-size: 16px;
+        }
+        .modal-title{
+            color: black;
+        }
+        .modal-body{
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Спортивный клуб</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="trainings.html">Тренировки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="coaches.html">Тренера</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="membership.html">Абонементы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Магазин</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reviews.html">Отзывы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rental.html">Аренда залов и дополнительные услуги</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Профиль</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
+                            Корзина (<span id="cartCount">0</span>)
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <button id="roleToggleBtn" class="btn btn-secondary mb-3">Сменить роль</button>
+    <div class="container">
+    <div class="container mt-4">
+        <button id="togglePurchasesButton" class="btn btn-primary">Посмотреть купленные товары</button>
+        <div id="purchasesContainer" class="mt-3" style="display: none;">
+            <h4>Купленные товары</h4>
+            <ul id="purchasesList"></ul>
+        </div>
+    </div>
+    <div class="container filter-container">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="categoryFilter">Категория:</label>
+                <select id="categoryFilter" class="form-select">
+                    <option value="">Все</option>
+                    <option value="Одежда">Одежда</option>
+                    <option value="Спортивное питание">Спортивное питание</option>
+                    <option value="Аксессуары">Аксессуары</option>
+                    <option value="Инвентарь">Инвентарь</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="priceFilter">Цена:</label>
+                <select id="priceFilter" class="form-select">
+                    <option value="">Все</option>
+                    <option value="1">До 1000 руб</option>
+                    <option value="2">1000 - 3000 руб</option>
+                    <option value="3">Более 3000 руб</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Наши товары</h2>
+
+        <div class="category-title">Товары</div>
+        <div class="row" id="productList"></div>
+    </div>
+
+    <!-- Модальное окно корзины -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Корзина покупок</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul id="cartItems">
+                        <li>В корзине нет товаров</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" onclick="proceedToPayment()">Перейти к оплате</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно оплаты -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Оплата</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Вы собираетесь завершить покупку</h4>
+                    <p>Общая сумма: <span id="totalPrice"></span> руб</p>
+                    <p>Выберите способ оплаты:</p>
+                    <button class="payment-button" onclick="payWithSBP()">Оплатить через СБП</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const products = [
+            { name: 'Сумка тренажёрная', category: 'Аксессуары', price: 2000, image: 'img/sumkatrenazhyornaya1.jpg' },
+            { name: 'Футболка спортивная', category: 'Одежда', price: 1200, image: 'img/futbolka_1.jpg' },
+            { name: 'Шорты спортивные', category: 'Одежда', price: 800, image: 'img/shorty_1.jfif' },
+            { name: 'Массажный пистолет', category: 'Аксессуары', price: 3500, image: 'img/massazhnyy pistolet.jpg' },
+            { name: 'Гантели', category: 'Инвентарь', price: 1500, image: 'img/ganteli_1.png' },
+            { name: 'Коврик для йоги', category: 'Инвентарь', price: 1200, image: 'img/kovrikyoga.jfif' },
+            { name: 'Обувь спортивная', category: 'Одежда', price: 2500, image: 'img/obuv_1.jfif' },
+            { name: 'Протеин', category: 'Спортивное питание', price: 1800, image: 'img/protein_1.jfif' },
+            { name: 'Спортивная бутылка', category: 'Аксессуары', price: 500, image: 'img/sportivnayabutylka_1.jpg' }
+        ];
+
+        const cart = [];
+
+        // Отображение товаров
+        function displayProducts(productsToShow) {
+            const productList = document.getElementById('productList');
+            productList.innerHTML = '';
+            productsToShow.forEach(product => {
+                const div = document.createElement('div');
+                div.classList.add('col-md-4');
+                div.innerHTML = `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="product-title">${product.name}</div>
+                        <div class="product-price">${product.price} руб</div>
+                        <button class="btn-buy" onclick="addToCart('${product.name}', ${product.price})">Добавить в корзину</button>
+                    </div>
+                `;
+                productList.appendChild(div);
+            });
+        }
+        function addToCart(name, price) {
+    cart.push({ name, price });
+    document.getElementById('cartCount').textContent = cart.length;  // Обновляем количество товаров в корзине
+
+    const cartItems = document.getElementById('cartItems');
+    cartItems.innerHTML = '';
+    cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.name} - ${item.price} руб. <span class="remove-item" onclick="removeFromCart(${index})">Удалить</span>`;
+        cartItems.appendChild(li);
+    });
+}
+
+
+        // Удаление товара из корзины
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            displayCart();
+        }
+
+        // Отображение корзины
+        function displayCart() {
+            document.querySelector('.nav-link.btn').textContent = `Корзина (${cart.length})`;
+
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+            cart.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `${item.name} - ${item.price} руб. <span class="remove-item" onclick="removeFromCart(${index})">Удалить</span>`;
+                cartItems.appendChild(li);
+            });
+        }
+
+        // Фильтрация товаров по категории и цене
+        function filterProducts() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const priceFilter = document.getElementById('priceFilter').value;
+
+            let filteredProducts = products;
+
+            // Фильтрация по категории
+            if (categoryFilter) {
+                filteredProducts = filteredProducts.filter(product => product.category === categoryFilter);
+            }
+
+            // Фильтрация по цене
+            if (priceFilter === "1") {
+                filteredProducts = filteredProducts.filter(product => product.price <= 1000);
+            } else if (priceFilter === "2") {
+                filteredProducts = filteredProducts.filter(product => product.price > 1000 && product.price <= 3000);
+            } else if (priceFilter === "3") {
+                filteredProducts = filteredProducts.filter(product => product.price > 3000);
+            }
+
+            displayProducts(filteredProducts);
+        }
+
+        // Обработка оплаты
+        function proceedToPayment() {
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('totalPrice').textContent = total;
+            const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+            paymentModal.show();
+        }
+
+        function payWithSBP() {
+    alert("Вы выбрали оплату через СБП. Пожалуйста, следуйте инструкциям на экране.");
+    savePurchasesToDB(); // Сохраняем покупки в БД
+}
+
+        function completePayment() {
+            // Покупка завершена
+            alert('Покупка завершена! Спасибо за покупку.');
+            
+            // Очистка корзины
+            cart.length = 0;
+            
+            // Обновление отображения количества товаров в корзине и списка
+            document.getElementById('cartCount').textContent = '0';
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '<li>В корзине нет товаров</li>';
+            
+            // Закрытие модального окна оплаты
+            const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+            paymentModal.hide();
+            
+        }
+
+        function groupCartItems(cart) {
+    const grouped = {};
+
+    cart.forEach((item) => {
+        if (grouped[item.name]) {
+            grouped[item.name].quantity += 1;
+            grouped[item.name].totalPrice += item.price;
+        } else {
+            grouped[item.name] = {
+                name: item.name,
+                price: item.price,
+                quantity: 1,
+                totalPrice: item.price,
+            };
+        }
+    });
+
+    return Object.values(grouped); // Возвращаем массив сгруппированных объектов
+}
+    function savePurchasesToDB() {
+        const groupedCart = groupCartItems(cart);
+
+        fetch('/save-purchase', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(groupedCart), // Отправляем сгруппированные данные корзины
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Покупки успешно сохранены в базу данных!');
+                completePayment(); // Завершаем покупку
+            } else {
+                alert('Ошибка при сохранении покупок.');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Ошибка при сохранении покупок.');
+        });
+    }
+function proceedToPayment() {
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+    document.getElementById('totalPrice').textContent = total;
+
+    const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+    paymentModal.show();
+}
+
+        // Слушатели изменений в фильтрах
+        document.getElementById('categoryFilter').addEventListener('change', filterProducts);
+        document.getElementById('priceFilter').addEventListener('change', filterProducts);
+
+        // Инициализация
+        displayProducts(products); // Отображаем все товары
+        filterProducts(); // Применяем начальную фильтрацию товаров
+
+        let currentRole = 'user'; // Начальная роль пользователя
+
+// Переключение ролей
+document.getElementById('roleToggleBtn').addEventListener('click', function () {
+    // Переключаем между ролями
+    if (currentRole === 'shop') {
+        currentRole = 'user';
+        alert('Вы вошли как пользователь');
+    } else {
+        currentRole = 'shop';
+        alert('Вы вошли как продавец');
+    }
+
+    toggleRoleFeatures(); // Обновляем видимость кнопок
+});
+
+// Управление доступом к кнопке "Посмотреть купленные товары"
+function toggleRoleFeatures() {
+    const showPurchasesButton = document.getElementById('togglePurchasesButton');
+    
+    // Показываем кнопку "Посмотреть купленные товары" только для продавца
+    if (currentRole === 'shop') {
+        showPurchasesButton.style.display = 'block'; // Показываем кнопку для продавца
+    } else {
+        showPurchasesButton.style.display = 'none'; // Скрываем кнопку для пользователя
+    }
+}
+
+// Логика кнопки "Посмотреть купленные товары"
+const togglePurchasesButton = document.getElementById('togglePurchasesButton');
+const purchasesContainer = document.getElementById('purchasesContainer');
+const purchasesList = document.getElementById('purchasesList');
+
+togglePurchasesButton.addEventListener('click', () => {
+    if (currentRole !== 'shop') {
+        alert('Только продавец может смотреть купленные товары!');
+        return;
+    }
+
+    if (purchasesContainer.style.display === 'none') {
+        purchasesContainer.style.display = 'block';
+        togglePurchasesButton.textContent = 'Скрыть купленные товары';
+        loadPurchases();
+    } else {
+        purchasesContainer.style.display = 'none';
+        togglePurchasesButton.textContent = 'Посмотреть купленные товары';
+    }
+});
+
+// Загрузка купленных товаров с сервера
+function loadPurchases() {
+    fetch('/get-purchases', { method: 'GET' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при загрузке купленных товаров');
+            }
+            return response.json();
+        })
+        .then(data => {
+            purchasesList.innerHTML = '';
+            if (data.length === 0) {
+                purchasesList.innerHTML = '<li>Нет купленных товаров</li>';
+                return;
+            }
+            data.forEach(purchase => {
+                const li = document.createElement('li');
+                li.textContent = `${purchase.name} - ${purchase.quantity} шт. - ${purchase.total_price} руб. (${purchase.purchase_date})`;
+                purchasesList.appendChild(li);
+            });
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            purchasesList.innerHTML = '<li>Ошибка при загрузке купленных товаров</li>';
+        });
+}
+
+// Инициализация
+toggleRoleFeatures();
+
+    </script>
+</body>
+</html>

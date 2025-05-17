@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренировки</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        /* Ваши стили */
+        .training-card {
+            background-color: #222;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 350px;
+        }
+
+        .training-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid #FF4500;
+        }
+
+        .training-card h3 {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .training-card .btn {
+            background-color: #FF4500;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .training-card .btn:hover {
+            background-color: #FF0000;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        /* Календарь */
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Рамка для формы */
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        .form-group {
+            margin-top: 20px;
+        }
+
+        .btn-register {
+            background-color: #FF4500;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn-register:hover {
+            background-color: #FF0000;
+        }
+
+        /* Календарь */
+        .fc-day-grid-event {
+            background-color: #FF4500 !important;
+            color: white;
+            min-height: 50px; /* Увеличиваем высоту ячеек */
+            padding: 5px;
+            font-size: 14px;
+            line-height: 1.3;
+        }
+
+        /* Настройка шрифта и отступов для текста в ячейке */
+        .fc-title {
+            font-size: 12px; /* Размер шрифта */
+            white-space: normal; /* Разрешить перенос текста */
+            word-wrap: break-word; /* Перенос длинных слов */
+            text-align: center; /* Выравнивание по центру */
+        }
+
+        /* Модальное окно */
+        .modal-body p {
+            font-size: 18px;
+        }
+        /* Заголовок формы */
+        .form-container h4 {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Спортивный клуб</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="trainings.html">Тренировки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="coaches.html">Тренера</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="membership.html">Абонементы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Магазин</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reviews.html">Отзывы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rental.html">Аренда залов и дополнительные услуги</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Профиль</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <button id="roleToggleBtn" class="btn btn-secondary mb-3">Сменить роль</button>
+    <div class="container">
+        <h2>Наши тренировки</h2>
+
+
+        <div class="row">
+            <!-- Карточка тренировки: Йога -->
+            <div class="col-md-4">
+                <div class="training-card">
+                    <img src="img/joga.jpg" alt="Йога">
+
+                    <h3>Йога</h3>
+                    <a href="#training-form" class="btn">Записаться на тренировку</a>
+                </div>
+            </div>
+            <!-- Карточка тренировки: Кардио -->
+            <div class="col-md-4">
+                <div class="training-card">
+                    <img src="img/kardio.jpg" alt="Кардио">
+                    <h3>Кардио</h3>
+                    <a href="#training-form" class="btn">Записаться на тренировку</a>
+                </div>
+            </div>
+            <!-- Карточка тренировки: Плавание -->
+            <div class="col-md-4">
+                <div class="training-card">
+                    <img src="img/plavanie.png" alt="Плавание">
+                    <h3>Плавание</h3>
+                    <a href="#training-form" class="btn">Записаться на тренировку</a>
+                </div>
+            </div>
+            <!-- Карточка тренировки: Силовые -->
+            <div class="col-md-4">
+                <div class="training-card">
+                    <img src="img/silovye.jpg" alt="Силовые">
+                    <h3>Силовые тренировки</h3>
+                    <a href="#training-form" class="btn">Записаться на тренировку</a>
+                </div>
+            </div>
+            <!-- Карточка тренировки: Фитнес -->
+            <div class="col-md-4">
+                <div class="training-card">
+                    <img src="img/fitnes.jpg" alt="Фитнес">
+                    <h3>Фитнес</h3>
+                    <a href="#training-form" class="btn">Записаться на тренировку</a>
+                </div>
+            </div>
+            <!-- Карточка тренировки: Функциональные -->
+            <div class="col-md-4">
+                <div class="training-card">
+                    <img src="img/funktsionalnye.jpg" alt="Функциональные тренировки">
+                    <h3>Функциональные тренировки</h3>
+                    <a href="#training-form" class="btn">Записаться на тренировку</a>
+                </div>
+            </div>
+        </div>
+        <button id="showTrainingsBtn" class="btn btn-primary mb-3">Показать тренировки</button>
+        <div id="trainingsListContainer" style="display: none;"></div>
+
+        <h3>Расписание тренировок </h3>
+        <div id="calendar"></div>
+
+        <!-- Форма для записи на тренировку -->
+        <div class="form-container" id="training-form">
+
+            <h4>Записаться на тренировки</h4>
+            <form action="/submit_registration" method="POST">
+                <div class="form-group">
+                    <label for="fullName">Ф.И.О.</label>
+                    <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Введите ваше имя" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Введите ваш номер" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="trainingCategory">Выберите категорию тренировки</label>
+                    <select class="form-control" id="trainingCategory" name="trainingCategory" required>
+                        <option value="cardio">Кардио</option>
+                        <option value="strength">Силовые</option>
+                        <option value="yoga">Йога</option>
+                        <option value="functional">Функциональные</option>
+                        <option value="swimming">Плавание</option>
+                        <option value="fitness">Фитнес</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trainingType">Тип тренировки</label>
+                    <select class="form-control" id="trainingType" name="trainingType" required>
+                        <option value="group">Групповая</option>
+                        <option value="individual">Индивидуальная</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trainingDay">Выберите день тренировки</label>
+                    <select class="form-control" id="trainingDay" name="trainingDay" required>
+                        <!-- Дни будут добавляться динамически -->
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-register">Записаться</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Инициализация календаря
+            $('#calendar').fullCalendar({
+                firstDay: 1,  // Начало недели с понедельника
+                events: [
+                    {
+                        title: 'Йога 19:00-20:00',
+                        dow: [2, 4, 0], // Вторник, Четверг, Воскресенье
+                    },
+                    {
+                        title: 'Кардио 21:00-21:30',
+                        dow: [1, 3, 5], // Понедельник, Среда, Пятница
+                    },
+                    {
+                        title: 'Силовые тренировки 20:00-22:00',
+                        dow: [0, 3, 5], // Воскресенье, Среда, Пятница
+                    },
+                    {
+                        title: 'Фитнес 21:00-22:30',
+                        dow: [1, 2, 4], // Понедельник, Вторник, Четверг
+                    },
+                    {
+                        title: 'Плавание 20:00-22:00',
+                        dow: [1, 2, 4, 0], // Понедельник, Вторник, Четверг, Воскресенье
+                    },
+                    {
+                        title: 'Функциональные тренировки 21:00-22:00',
+                        dow: [0, 1, 2, 3, 4, 5, 6], // Все дни недели
+                    }
+                ],
+                locale: 'ru',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                },
+            });
+    
+            // Фильтрация дней по категории тренировки
+            const daysMap = {
+                cardio: [1, 3, 5], // Понедельник, Среда, Пятница
+                strength: [0, 3, 5], // Воскресенье, Среда, Пятница
+                yoga: [2, 4, 0], // Вторник, Четверг, Воскресенье
+                functional: [0, 1, 2, 3, 4, 5, 6], // Все дни недели
+                swimming: [1, 2, 4, 0], // Понедельник, Вторник, Четверг, Воскресенье
+                fitness: [1, 2, 4], // Понедельник, Вторник, Четверг
+            };
+    
+            $('#trainingCategory').on('change', function() {
+                let selectedCategory = $(this).val(); // Получаем выбранную категорию тренировки
+                let availableDays = daysMap[selectedCategory]; // Получаем доступные дни для этой категории
+    
+                console.log('Выбрана категория тренировки:', selectedCategory);  // Для отладки
+                console.log('Доступные дни:', availableDays); // Для отладки
+    
+                let dayOptions = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+                
+                $('#trainingDay').empty(); // Очищаем текущие дни
+    
+                if (availableDays && availableDays.length > 0) {
+                    // Если есть доступные дни, добавляем их в селект
+                    availableDays.forEach(function(dayIndex) {
+                        $('#trainingDay').append(`<option value="${dayIndex}">${dayOptions[dayIndex]}</option>`);
+                    });
+                } else {
+                    // Если нет доступных дней, выводим "Нет доступных дней"
+                    $('#trainingDay').append('<option disabled>Нет доступных дней</option>');
+                }
+            });
+    
+            // Инициализация с начальным значением (т.е. активируем событие по умолчанию)
+            $('#trainingCategory').trigger('change');
+        });
+                // Отправка данных на сервер
+                $('#trainingForm').on('submit', function(e) {
+            e.preventDefault();  // Предотвращаем обычное отправление формы
+            let formData = $(this).serialize();  // Собираем все данные формы
+
+            $.ajax({
+                url: '/register-training',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    alert(response);  // Показать сообщение об успехе
+                },
+                error: function() {
+                    alert('Ошибка при записи на тренировку.');
+                }
+            });
+        });
+        document.getElementById('showTrainingsBtn').addEventListener('click', function() {
+            fetch('/api/trainings')
+                .then(response => response.json())
+                .then(trainings => {
+                    const container = document.getElementById('trainingsListContainer');
+                    container.innerHTML = '';  // Очистка контейнера
+
+                    const dayNames = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+
+                    trainings.forEach(training => {
+                        const trainingElement = document.createElement('div');
+                        trainingElement.classList.add('card', 'mb-3');
+                        trainingElement.innerHTML = `
+                            <div class="card-body">
+                                <h5 class="card-title">Ф.И.О.: ${training.full_name}</h5>
+                                <p class="card-text">Телефон: ${training.phone}</p>
+                                <p class="card-text">Категория: ${training.training_category}</p>
+                                <p class="card-text">Тип тренировки: ${training.training_type}</p>
+                                <p class="card-text">День: ${dayNames[training.training_day]}</p>
+                                <p class="card-text">Дата записи: ${new Date(training.created_at).toLocaleDateString()}</p>
+                                <button class="btn btn-danger delete-btn" data-id="${training.id}">Удалить</button>
+                                <button class="btn btn-warning update-btn" data-id="${training.id}">Обновить</button>
+                            </div>
+                        `;
+                        container.appendChild(trainingElement);
+                    });
+
+                    // Привязка действий к кнопкам
+                    document.querySelectorAll('.delete-btn').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const trainingId = this.getAttribute('data-id');
+                            deleteTraining(trainingId);
+                        });
+                    });
+
+                    document.querySelectorAll('.update-btn').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const trainingId = this.getAttribute('data-id');
+                            updateTraining(trainingId);
+                        });
+                    });
+                });
+        });
+
+        // Удаление тренировки
+        function deleteTraining(trainingId) {
+            fetch(`/api/trainings/${trainingId}`, { method: 'DELETE' })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Тренировка удалена');
+                    document.getElementById('showTrainingsBtn').click();
+                })
+                .catch(error => console.error('Ошибка удаления тренировки:', error));
+        }
+
+        // Обновление тренировки
+        function updateTraining(trainingId) {
+    const newCategory = prompt("Введите новую категорию тренировки:");
+    const newDay = prompt("Введите новый номер дня недели (0 - воскресенье, 6 - суббота):");
+
+    if (!newCategory || !newDay) {
+        alert("Категория и день тренировки не могут быть пустыми.");
+        return;
+    }
+
+    fetch(`/api/trainings/${trainingId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            training_category: newCategory,
+            training_day: parseInt(newDay, 10), // Преобразуем день недели в число
+        }),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Ошибка обновления тренировки');
+            }
+            return response.json();
+        })
+        .then((data) => {
+            alert(data.message || 'Тренировка успешно обновлена');
+            document.getElementById('showTrainingsBtn').click(); // Перезагрузка списка тренировок
+        })
+        .catch((error) => {
+            console.error('Ошибка обновления тренировки:', error);
+            alert('Не удалось обновить тренировку.');
+        });
+}
+let isAdmin = false; // Начальная роль пользователя
+
+// Переключение ролей
+document.getElementById('roleToggleBtn').addEventListener('click', function() {
+    isAdmin = !isAdmin; // Переключение роли
+    alert(isAdmin ? 'Вы вошли как администратор' : 'Вы вошли как пользователь');
+    toggleAdminFeatures();
+});
+
+    // Управление доступом к кнопке "Показать тренировки"
+    function toggleAdminFeatures() {
+        const showTrainingsBtn = document.getElementById('showTrainingsBtn');
+        showTrainingsBtn.style.display = isAdmin ? 'block' : 'none'; // Показать или скрыть кнопку
+    }
+
+    // Обработчик для кнопки "Показать тренировки"
+    document.getElementById('showTrainingsBtn').addEventListener('click', function() {
+        const container = document.getElementById('trainingsListContainer');
+        if (container.style.display === 'none' || container.style.display === '') {
+            container.style.display = 'block'; // Открыть список
+            this.textContent = 'Скрыть тренировки'; // Изменить текст кнопки
+        } else {
+            container.style.display = 'none'; // Скрыть список
+            this.textContent = 'Показать тренировки'; // Изменить текст кнопки
+        }
+    });
+
+// Инициализация интерфейса
+toggleAdminFeatures();
+    </script>
+    
+</body>
+</html>

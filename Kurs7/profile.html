@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль спортсмена</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+        }
+        .navbar {
+            background-color: #222;
+        }
+        .navbar-brand, .nav-link {
+            color: #e60000 !important;
+        }
+        .nav-link:hover {
+            color: #ff0000 !important;
+        }
+        .profile-card {
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+        .profile-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-card h3 {
+            margin-top: 15px;
+        }
+        .history-list {
+            background-color: #444;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .history-item span {
+            font-weight: bold;
+        }
+        .btn-change-user {
+            background-color: #007bff;
+            color: white;
+            margin-top: 20px;
+        }
+        .btn-change-user:hover {
+            background-color: #0056b3;
+        }
+        .user-list {
+            background-color: #444;
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .user-item {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .user-item:hover {
+            background-color: #555;
+        }
+        .add-user-form {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            margin-top: 20px;
+        }
+        .add-user-form input, .add-user-form button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Спортивный клуб</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="trainings.html">Тренировки</a></li>
+                    <li class="nav-item"><a class="nav-link" href="coaches.html">Тренера</a></li>
+                    <li class="nav-item"><a class="nav-link" href="membership.html">Абонементы</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shop.html">Магазин</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reviews.html">Отзывы</a></li>
+                    <li class="nav-item"><a class="nav-link" href="rental.html">Аренда</a></li>
+                    <li class="nav-item"><a class="nav-link" href="additional_services.html">Дополнительные услуги клуба</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Профиль</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <button id="roleToggleBtn" class="btn btn-secondary mb-3">Сменить роль</button>
+    <div class="container">
+        <h2 class="mt-4">Профиль спортсмена</h2>
+
+        <!-- Карточка профиля -->
+        <div class="profile-card d-flex" id="profileCard">
+            <img src="img/fotoatleta.jfif" alt="Фото спортсмена">
+            <div class="ms-3">
+                <h3 id="athleteName">Иван Иванов</h3>
+                <p>Возраст: <span id="athleteAge">25 лет</span></p>
+                <p>Город: <span id="athleteCity">Москва</span></p>
+                <p>Занятие: <span id="athleteActivity">Фитнес, кардио, йога</span></p>
+                <p>Телефон: <span id="athletePhone">+7 000 000 00 00</span></p>
+
+                <button class="btn btn-change-user admin-only" onclick="toggleUserList()">Сменить пользователя</button>
+            </div>
+        </div>
+
+        <!-- Кнопка для добавления пользователя -->
+        <button class="btn btn-success admin-only" onclick="toggleAddUserForm()">Добавить пользователя</button>
+
+        <!-- Форма для добавления пользователя -->
+        <div class="add-user-form" id="addUserForm">
+            <h3>Добавить нового пользователя</h3>
+            <form id="addUserFormElement">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" required><br>
+
+                <label for="age">Возраст:</label>
+                <input type="number" id="age" name="age" required><br>
+
+                <label for="city">Город:</label>
+                <input type="text" id="city" name="city" required><br>
+
+                <label for="activity">Деятельность:</label>
+                <input type="text" id="activity" name="activity" required><br>
+                <label for="phone">Телефон:</label>
+                <input type="tel" id="phone" name="phone" required><br>                
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </form>
+        </div>
+        <!-- Форма для обновления пользователя -->
+        <div class="add-user-form" id="updateUserForm" style="display: none;">
+            <h3>Обновить данные пользователя</h3>
+            <form id="updateUserFormElement">
+                <label for="updateName">Имя:</label>
+                <input type="text" id="updateName" name="updateName" required><br>
+
+                <label for="updateAge">Возраст:</label>
+                <input type="number" id="updateAge" name="updateAge" required><br>
+
+                <label for="updateCity">Город:</label>
+                <input type="text" id="updateCity" name="updateCity" required><br>
+
+                <label for="updateActivity">Деятельность:</label>
+                <input type="text" id="updateActivity" name="updateActivity" required><br>
+                <label for="updatePhone">Телефон:</label>
+                <input type="tel" id="updatePhone" name="updatePhone" required><br>
+                
+
+                <button type="submit" class="btn btn-warning">Обновить</button>
+            </form>
+        </div>
+
+
+        <!-- Список пользователей -->
+         
+        
+        <div class="user-list" id="userList" style="display: none;">
+            
+        </div>
+        
+    </div>
+
+    <script>
+        let currentRole = 'user'; // Начальная роль - пользователь
+
+        // Переключение ролей
+        document.getElementById('roleToggleBtn').addEventListener('click', function () {
+            if (currentRole === 'admin') {
+                currentRole = 'user'; // Переключаем на пользователя
+                alert('Вы вошли как пользователь');
+            } else {
+                currentRole = 'admin'; // Переключаем на администратора
+                alert('Вы вошли как администратор');
+            }
+
+            toggleRoleFeatures(); // Обновляем видимость кнопок
+        });
+
+        // Функция для управления видимостью элементов в зависимости от роли
+        function toggleRoleFeatures() {
+            const adminOnlyElements = document.querySelectorAll('.admin-only');
+            adminOnlyElements.forEach(el => {
+                el.style.display = currentRole === 'admin' ? 'block' : 'none';
+            });
+        }
+
+        // Инициализация отображения
+        toggleRoleFeatures();
+        // Функция для переключения отображения списка пользователей
+        function toggleUserList() {
+            const userList = document.getElementById('userList');
+            if (userList.style.display === 'none') {
+                userList.style.display = 'block';
+                loadUsers();  // Загружаем список пользователей
+            } else {
+                userList.style.display = 'none';
+            }
+        }
+
+        // Функция для переключения отображения формы добавления пользователя
+        function toggleAddUserForm() {
+            const addUserForm = document.getElementById('addUserForm');
+            if (addUserForm.style.display === 'none' || addUserForm.style.display === '') {
+                addUserForm.style.display = 'block';
+            } else {
+                addUserForm.style.display = 'none';
+            }
+        }
+
+        // Функция для загрузки списка пользователей с сервера
+        function loadUsers() {
+            fetch('http://localhost:3000/api/users')
+                .then(response => response.json())
+                .then(data => {
+                    const userList = document.getElementById('userList');
+                    userList.innerHTML = '';  // Очищаем предыдущий список
+
+                    // Заполняем список пользователей
+                    data.users.forEach(user => {
+                        const div = document.createElement('div');
+                        div.className = 'user-item';
+                        div.textContent = user.name;  // Отображаем имя пользователя
+                        div.onclick = () => changeUser(user.id);  // Используем уникальный ID пользователя
+                        userList.appendChild(div);
+                    });
+                })
+                .catch(error => console.error('Ошибка при загрузке пользователей:', error));
+        }
+
+
+
+        document.getElementById('addUserFormElement').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    // Получаем данные из формы
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+    const city = document.getElementById('city').value;
+    const activity = document.getElementById('activity').value;
+    const phone = document.getElementById('phone').value;
+
+    // Отправка данных на сервер
+    fetch('http://localhost:3000/api/addUser', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, age, city, activity, phone })
+})
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Пользователь успешно добавлен!');
+            loadUsers();
+            document.getElementById('addUserForm').style.display = 'none';
+        } else {
+            alert('Ошибка при добавлении пользователя!');
+        }
+    })
+    .catch(error => console.error('Ошибка при добавлении пользователя:', error));
+});
+
+
+
+let currentUserId = null;
+
+// Функция для переключения отображения списка пользователей
+function toggleUserList() {
+    const userList = document.getElementById('userList');
+    if (userList.style.display === 'none') {
+        userList.style.display = 'block';
+        loadUsers();  // Загружаем список пользователей
+    } else {
+        userList.style.display = 'none';
+    }
+}
+
+// Функция для переключения отображения формы добавления пользователя
+function toggleAddUserForm() {
+    const addUserForm = document.getElementById('addUserForm');
+    if (addUserForm.style.display === 'none' || addUserForm.style.display === '') {
+        addUserForm.style.display = 'block';
+    } else {
+        addUserForm.style.display = 'none';
+    }
+}
+
+// Функция для загрузки списка пользователей с сервера
+function loadUsers() {
+fetch('http://localhost:3000/api/users')
+.then(response => response.json())
+.then(data => {
+    const userList = document.getElementById('userList');
+    userList.innerHTML = '';  // Очищаем предыдущий список
+
+    // Заполняем список пользователей
+    data.users.forEach(user => {
+        const div = document.createElement('div');
+        div.className = 'user-item';
+        div.textContent = user.name;  // Отображаем имя пользователя
+
+        // Кнопка для обновления пользователя
+        const updateButton = document.createElement('button');
+        updateButton.textContent = 'Обновить';
+        updateButton.className = 'btn btn-warning btn-sm ms-2';
+        updateButton.onclick = () => openUpdateForm(user.id);
+
+        // Кнопка для удаления пользователя
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Удалить';
+        deleteButton.className = 'btn btn-danger btn-sm ms-2';
+        deleteButton.onclick = () => deleteUser(user.id);
+
+        // Добавляем имя и кнопки в div
+        div.appendChild(updateButton);
+        div.appendChild(deleteButton);
+
+        div.onclick = () => {
+            currentUserId = user.id;
+            changeUser(user.id);  // Используем уникальный ID пользователя
+        };
+
+        userList.appendChild(div);
+    });
+})
+.catch(error => console.error('Ошибка при загрузке пользователей:', error));
+}
+
+// Обновление данных профиля при выборе пользователя
+function changeUser(userId) {
+    fetch(`http://localhost:3000/api/user/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+            const user = data.user;
+            document.getElementById('athleteName').textContent = user.name;
+            document.getElementById('athleteAge').textContent = user.age;
+            document.getElementById('athleteCity').textContent = user.city;
+            document.getElementById('athleteActivity').textContent = user.activity;
+            document.getElementById('athletePhone').textContent = user.phone; // Добавлено обновление телефона
+            document.getElementById('userList').style.display = 'none';
+        })
+        .catch(error => console.error('Ошибка при загрузке данных пользователя:', error));
+}
+
+
+// Открытие формы обновления пользователя
+function openUpdateForm(userId) {
+    fetch(`http://localhost:3000/api/user/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+            const user = data.user;
+            document.getElementById('updateName').value = user.name;
+            document.getElementById('updateAge').value = user.age;
+            document.getElementById('updateCity').value = user.city;
+            document.getElementById('updateActivity').value = user.activity;
+            document.getElementById('athletePhone').textContent = user.phone; 
+            document.getElementById('updateUserForm').style.display = 'block';
+            currentUserId = userId;
+        })
+        .catch(error => console.error('Ошибка при загрузке данных для обновления:', error));
+}
+
+
+
+
+// Обработчик удаления пользователя
+function deleteUser(userId) {
+    fetch(`http://localhost:3000/api/user/${userId}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Пользователь успешно удален!');
+            loadUsers();  // Загружаем обновленный список пользователей
+        } else {
+            alert('Ошибка при удалении пользователя!');
+        }
+    })
+    .catch(error => console.error('Ошибка при удалении пользователя:', error));
+}
+document.getElementById('updateUserFormElement').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const name = document.getElementById('updateName').value;
+    const age = document.getElementById('updateAge').value;
+    const city = document.getElementById('updateCity').value;
+    const activity = document.getElementById('updateActivity').value;
+    const phone = document.getElementById('updatePhone').value;
+
+    fetch(`http://localhost:3000/api/user/${currentUserId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, age, city, activity, phone })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Данные пользователя обновлены!');
+            loadUsers();
+            document.getElementById('updateUserForm').style.display = 'none';
+        } else {
+            alert('Ошибка при обновлении данных пользователя!');
+        }
+    })
+    .catch(error => console.error('Ошибка при обновлении данных пользователя:', error));
+});
+
+
+
+    </script>
+</body>
+</html>

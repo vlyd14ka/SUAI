@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спортивный клуб</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        /* Основные стили */
+        body {
+            background-color: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .hero-section {
+            position: relative;
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 150px 20px 50px;
+            margin-bottom: 30px;
+        }
+
+        .hero-section h1 {
+            font-size: 48px;
+            font-weight: bold;
+            color: red;
+        }
+
+        .hero-section p {
+            font-size: 24px;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .highlight {
+            color: #FF4500;
+            font-weight: bold;
+        }
+
+        /* Выезжающий текст */
+        .welcome-text {
+            font-size: 36px;
+            color: #FF4500;
+            animation: slideIn 2s forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        .contact-info {
+            background-color: #333;
+            color: white;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .offer-card {
+            background-color: #FF4500;
+            color: white;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .offer-card h5 {
+            margin-bottom: 15px;
+        }
+
+        .offer-card p {
+            font-size: 18px;
+        }
+
+        .offer-card button {
+            background-color: #222;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .offer-card button:hover {
+            background-color: #FF0000;
+        }
+
+        /* Стили для навигации */
+        .navbar-nav {
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Спортивный клуб</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="trainings.html">Тренировки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="coaches.html">Тренера</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="membership.html">Абонементы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Магазин</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reviews.html">Отзывы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rental.html">Аренда залов и дополнительные услуги</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Профиль</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главная страница -->
+    <header class="hero-section">
+        <h1>Спортивный клуб</h1>
+        <p class="welcome-text">Всё начинается с <span class="highlight">ТЕБЯ</span></p>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Мы поможем вам стать лучше!</h2>
+            <p>Наш клуб предлагает широкий спектр услуг, которые помогут вам достичь самых высоких результатов в спорте. Всё, что вам нужно сделать — это работать и совершенствоваться. Мы предоставим вам лучшие условия для тренировок, квалифицированных тренеров и современное оборудование.</p>
+        </section>
+
+        <section>
+            <h3>Акционные предложения</h3>
+            <div class="d-flex justify-content-around">
+                <div class="offer-card">
+                    <h5>Скидка 20% на первый месяц</h5>
+                    <p>Только для новых клиентов!</p>
+                    <button>Подробнее</button>
+                </div>
+                <div class="offer-card">
+                    <h5>Подарок при регистрации</h5>
+                    <p>Футболка с логотипом клуба для первых 50 клиентов!</p>
+                    <button>Подробнее</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="contact-info">
+        <h3>Контактная информация</h3>
+        <p><strong>Телефон:</strong> +7 800 555-35-35</p>
+        <p><strong>Адрес клуба:</strong> Санкт-Петербург, ул. Гастело, 15</p>
+        <p><strong>Юридический адрес:</strong> Санкт-Петербург, ул. Большая Морская, 67</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
