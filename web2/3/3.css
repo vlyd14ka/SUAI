@@ -1,0 +1,125 @@
+body {
+    font-family: 'Georgia', serif;
+    background-color: #f7f1e3;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+     
+
+}
+
+
+
+form {
+    width: 450px;
+    background-color: #fff4e6;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h2 {
+    text-align: left;
+    color: #d35400;
+    margin-bottom: 200px;
+    font-size: 1.8em;
+    margin-right: 120px;
+
+    
+}
+
+label {
+    font-weight: bold;
+    color: #5a3e36;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select,
+input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #c8b6a6;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+fieldset {
+    border: 1px solid #c8b6a6;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+legend {
+    font-weight: bold;
+    color: #5a3e36;
+}
+
+button, input[type="submit"] {
+    padding: 12px 20px;
+    background-color: #d35400;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #e67e22;
+}
+
+input:invalid {
+    border-color: #e74c3c;
+}
+
+#errorModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#errorModalContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#errorModalContent h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    color: #d9534f;
+}
+
+#errorModalContent button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#errorModalContent button:hover {
+    background: #c9302c;
+}

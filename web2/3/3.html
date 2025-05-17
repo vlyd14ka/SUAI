@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Театр - Заказ билетов</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="3.css">
+</head>
+<body>
+    <h2>Заказ билетов в театр</h2>
+    <form id="ticketForm" enctype="multipart/form-data">
+        <label for="username">Ваше имя:</label><br>
+        <input type="text" id="username" name="username" placeholder="Введите ваше имя" minlength="3" required><br>
+
+        <label for="email">Электронная почта:</label><br>
+        <input type="email" id="email" name="email" placeholder="example@domain.com" required><br>
+
+        <label for="phone">Номер телефона:</label><br>
+        <input type="tel" id="phone" name="phone" placeholder="+7 999 123-45-67" required><br>
+
+        <fieldset>
+            <legend>Выберите спектакль:</legend>
+            <input type="radio" id="play1" name="play" value="Гамлет" required>
+            <label for="play1">Гамлет</label><br>
+            <input type="radio" id="play2" name="play" value="Ромео и Джульетта">
+            <label for="play2">Ромео и Джульетта</label><br>
+            <input type="radio" id="play3" name="play" value="Чайка">
+            <label for="play3">Чайка</label><br>
+        </fieldset>
+    
+        <label for="seatType">Тип места:</label><br>
+        <select id="seatType" name="seatType" required>
+            <option value="Standard">Стандарт</option>
+            <option value="VIP">VIP</option>
+        </select><br>
+
+        <fieldset>
+            <legend>Дополнительные услуги:</legend>
+            <input type="checkbox" id="snacks" name="extras" value="Снэки">
+            <label for="snacks">Снэки</label><br>
+            <input type="checkbox" id="drink" name="extras" value="Напитки">
+            <label for="drink">Напитки</label><br>
+            <input type="checkbox" id="program" name="extras" value="Программа">
+            <label for="program">Программа спектакля</label><br>
+        </fieldset>
+
+        <label for="comments">Комментарии:</label><br>
+        <textarea id="comments" name="comments" rows="4" placeholder="Особые пожелания или комментарии"></textarea><br>
+        
+        <label for="date">Дата посещения:</label><br>
+        <input type="date" id="date" name="date" required><br>
+        
+        <label for="file">Загрузите файл:</label><br>
+        <input type="file" id="file" name="file" accept=".jpg" required><br>
+
+        <input type="submit" value="Оформить заказ">
+    </form>
+
+    <div id="errorModal">
+        <div id="errorModalContent">
+            <h3 id="errorText"></h3>
+            <button id="closeErrorModal">Закрыть</button>
+        </div>
+    </div>
+
+    <script>
+        const ticketForm = document.getElementById('ticketForm');
+        const errorModal = document.getElementById('errorModal');
+        const errorText = document.getElementById('errorText');
+        const closeErrorModal = document.getElementById('closeErrorModal');
+
+        ticketForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); 
+
+            const formData = new FormData(ticketForm);
+
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    const errorMessage = await response.text();
+                    showErrorModal(errorMessage);
+                } else {
+                    const successHtml = await response.text();
+                    document.body.innerHTML = successHtml;
+                }
+            } catch (err) {
+                showErrorModal('Произошла ошибка. Попробуйте снова.');
+            }
+        });
+
+        closeErrorModal.addEventListener('click', () => {
+            errorModal.style.display = 'none';
+        });
+
+        function showErrorModal(message) {
+            errorText.textContent = message;
+            errorModal.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
