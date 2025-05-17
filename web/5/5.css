@@ -1,0 +1,100 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: aqua;
+}
+
+body p, h2, a {
+    color: rgb(255, 255, 255);
+    font-family: Arial, Helvetica, sans-serif;
+    word-wrap: break-word;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: stretch;
+    justify-content: center;
+    margin: auto;
+    margin-top: 5%;
+    border: 2px solid #ccc;
+    width: 60%;
+    background-color:burlywood;
+    border-radius: 2%;
+}
+
+a:hover {
+    background-color:red;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1% 0;
+    flex-grow: 0;
+}
+
+.navbar a {
+    text-decoration: none;
+    padding: 1%;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    flex-grow: 1;
+    margin: 0 1%;
+    text-align: center;
+    width: 90%;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    margin: 1%;
+    flex-direction: row;
+}
+
+.content img {
+    float: left;
+    margin-right: 2%;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+#rightbox, #leftbox {
+    flex: 1;
+    margin: 2%;
+    border: 2px solid #ccc;
+    align-self: stretch;
+    text-align: center;
+    padding: 10px;
+    border-radius: 3%;
+    max-width: none;
+    min-width: 0;
+}
+
+#centerbox {
+    flex: 2;
+    margin: 2%;
+    border: 2px solid #ccc;
+    align-self: stretch;
+    padding: 10px;
+    border-radius: 3%;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1% 1%;
+    border-top: 2px solid #ccc;
+    flex-grow: 0;
+}
+
+#phone, #address {
+    border: 2px solid #ccc;
+    width: 100%;
+    margin: 0 1%;
+    text-align: center;
+}
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 лабораторная 2 часть</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #container ul {
+            display: flex;
+            list-style-type: none;
+        }
+
+        #container ul li {
+            margin: 0 5px;
+            
+        }
+
+        img {
+            max-width: 600px;
+            height: 300px;
+        }
+
+    .prev, .next {
+        position: fixed;
+        top: 50%;
+        padding: 20px;
+        cursor: pointer;
+    }
+
+    .prev {
+        left: 0;
+    }
+
+    .next {
+        right: 0;
+    }
+
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <button class="prev" onclick="plusSlides(-1)">❮</button>
+        <ul>
+            <li><img src="1.jpg" alt="Фотография"></li>
+            <li><img src="2.jpg" alt="Фотография"></li>
+            <li><img src="3.jpg" alt="Фотография"></li>
+            <li><img src="4.jpg" alt="Фотография"></li>
+            <li><img src="5.jpg" alt="Фотография"></li>
+            <li><img src="6.jpg" alt="Фотография"></li>
+            <li><img src="7.jpg" alt="Фотография"></li>
+        </ul>
+        <button class="next" onclick="plusSlides(1)">❯</button>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+function showSlides(n) {
+    const slides = document.querySelectorAll("#container ul li img");
+    if (n >= slides.length) slideIndex = 0;
+    if (n < 0) slideIndex = slides.length - 1;
+
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+
+    for (let i = 0; i < 3; i++) {
+        let newIndex = (slideIndex + i) % slides.length;
+        slides[newIndex].style.display = "block";
+    }
+}
+
+showSlides(slideIndex);
+    </script>
+</body>
+</html>

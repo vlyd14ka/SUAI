@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* ABOUT */
+body.about {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(270deg, #1a1a1a, #333, black);
+  background-size: 600% 600%;
+  animation: gradientAnimation 10s ease infinite;
+  color: white;
+  
+}
+
+
+@-webkit-keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.video-container {
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
+  position: relative;
+
+}
+.video-container > h1 {
+  position: absolute;
+  top: 40%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  font-size: 2vw; 
+  font-family: "Comfortaa", sans-serif;
+
+}
+
+@media only screen and (max-width: 768px) {
+  .video-container > h1 {
+    font-size: 6vw; 
+  }
+}
+.video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5; 
+}
+.content {
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+}
+.content.visible {
+  opacity: 1;
+}
+.text-container {
+  padding: 40px 20px;
+  font-size: 1.2em;
+}
+.text-container h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+.text-container p, .text-container ul {
+  margin-bottom: 20px;
+}
+.footer {
+  background: #1a1a1a;
+  padding: 20px 0;
+  text-align: center;
+  color: white;
+}
+
+
+/* CONTACT */
+
+body.contact {
+  background-image: url('back3.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  color: black;
+}
+.contact-info {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+  border-radius: 10px;
+}
+.contact-form {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+}
+.h1_p{
+  color: white;
+}
+
+
+/* INDEX */
+
+body.index {
+  margin: 0;
+  padding: 0;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  background: linear-gradient(270deg, #232526, #414345, black);
+  background-size: 600% 600%;
+  animation: gradientAnimation 7s ease infinite;
+  color: white;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-background {
+  background: inherit;
+  background-clip: padding-box;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.news-section {
+  padding: 40px 0;
+}
+.news-item {
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+.news-item:hover {
+  transform: translateY(-10px);
+}
+h3, h5 {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+h5 a {
+  color: #f9d342;
+  text-decoration: none;
+}
+h5 a:hover {
+  text-decoration: underline;
+}
+
+footer.index{
+  background-color: #f8f9fa;
+  text-align: center; 
+  padding-top: 1rem; 
+  padding-bottom: 1rem; 
+  color: black;
+}
+
+/* ARTIST */
+
+body.artist{
+  background-image: url('back.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #fff; 
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+}
+
+footer.artist{
+  margin-top: auto;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>8 Лабораторная </title>
+	</head>
+
+	<style>
+		#first_button, #second_button{
+			font-size: 20px;
+			height: 25px;
+			background: #aaa;
+		}
+        #first_button:hover, #second_button:hover {
+            background: red; 
+            color: white; 
+        }
+		#first_button.show, #second_button.show{
+			background: blue;
+			color: white;
+
+		}
+
+		#first_content, #second_content, #third_content{
+			font-size: 20px;
+			color: white;
+			height: 0px;
+			background: pink;
+		}
+
+		#first_content.open, #second_content.open, #third_content.open{
+			height: 25px;
+			background: green;
+		}
+	</style>
+
+	<body>
+		<div id = "first_button">Первая строчка</div>
+			<div id = "first_content" class = "first_content">1</div>
+
+		<div id = "second_button">Вторая строчка</div>
+			<div id = "second_content">1-2</div>
+			<div id = "third_content">1-2-3</div>
+
+		<script>
+			let first_button = document.querySelector('#first_button');
+			let first_content = document.querySelector('#first_content');
+			
+			first_button.addEventListener('click', () => {
+				first_button.classList.toggle('show');
+				first_content.classList.toggle('open');
+			});
+
+			first_content.addEventListener('click', () =>
+			{
+				alert('Вы нажали!')
+			});
+
+			let second_button = document.querySelector('#second_button');
+			let second_content = document.querySelector('#second_content');
+			let third_content = document.querySelector('#third_content');
+
+			
+
+			second_button.addEventListener('click', () => {
+				second_button.classList.toggle('show');
+				second_content.classList.toggle('open');
+				third_content.classList.toggle('open');
+			});		
+            
+            second_content.addEventListener('click', () =>
+			{
+				alert('Много раз нажали')
+			});
+
+			third_content.addEventListener('click', () =>
+			{
+				alert('Чуть больше, чем много')
+			});
+		</script>
+	</body>
+</html>
