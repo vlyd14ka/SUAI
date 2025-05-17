@@ -1,0 +1,41 @@
+body {
+    font-family: 'Georgia', serif;
+    background-color: #fff4e6;
+    margin: 0;
+    padding: 20px;
+    color: #5a3e36;
+    text-align: center;
+}
+
+h2 {
+    color: #d35400;
+    font-size: 2em;
+    margin-top: 20px;
+    margin-bottom: 10px; /* Уменьшаем отступ снизу */
+}
+
+p {
+    font-size: 1.2em;
+    margin: 10px; /* Убираем отступы сверху и снизу */
+    line-height: 1.8;
+}
+
+a {
+    color: #d35400;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid #d35400; /* Добавляем рамку */
+}
